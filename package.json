@@ -4,7 +4,8 @@
   "description": "Learning full stack at Uni of Hellsinki",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+	"start": "node index.js",
+	"debug": "node --inspect index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../../part2/phonebook/ && npm run build --prod && cp -r build ../../part3/Phonebook_backend/",
