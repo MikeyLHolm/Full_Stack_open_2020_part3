@@ -1,10 +1,12 @@
-require('dotenv').config()
+// require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
-const Note = require('./models/person')
+// const Note = require('./models/person')
+
+// mongodb+srv://db_wizard_38:<password>@fso-phonebook-madness.9nsh6.mongodb.net/<dbname>?retryWrites=true&w=majority
 
 app.use(cors())
 app.use(express.json())
@@ -105,7 +107,7 @@ app.post('/api/persons', (request, response) => {
   response.json(person)
 })
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
