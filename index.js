@@ -9,7 +9,6 @@ const Person = require('./models/person')
 app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
-//app.use(logger)
 
 app.use(bodyParser.json())
 
@@ -26,15 +25,10 @@ app.use(morgan(function (tokens, req, res) {
   ].join(' ')
 }))
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
-})
-
 app.get('/info', (request, response) => {
-  const people = persons.length
-  const date = new Date()
-  response.send(`<p>Phonebook has info for ${people} people</p>
-                    <p>${date}</p>`)
+  Person.find({}).then(people => {
+    response.send(`<p>Phonebook has info for ${people.length} people</p><p>${new Date()}</p>`)
+  })
 })
 
 app.get('/api/persons', (request, response) => {
