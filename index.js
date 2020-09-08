@@ -4,7 +4,6 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
-const mongoose = require('mongoose')
 const Person = require('./models/person')
 
 app.use(cors())
@@ -28,29 +27,6 @@ app.use(morgan(function (tokens, req, res) {
     tokens.body(req,res)
   ].join(' ')
 }))
-
-/* let persons = [
-  {
-    name: "Arto Hellas",
-    number: "040-123456",
-    id: 1
-  },
-  {
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
-    id: 2
-  },
-  {
-    name: "Dan Abramov",
-    number: "12-43-234345",
-    id: 3
-  },
-  {
-    name: "Mary Poppendieck",
-    number: "39-23-6423122",
-    id: 4
-  }
-] */
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
@@ -94,22 +70,7 @@ app.delete('/api/persons/:id', (request, response) => {
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
-  if (body.name === undefined) {
-    return response.status(400).json({ error: 'name missing' })
-  }
-  
-  const person = new Person({
-    name: body.name,
-    number: body.number,
-    id: body.id,
-  })
-
-  person.save().then(savedPerson => {
-    response.json(savedPerson)
-  })
-
-
-  /* if (!body.name || !body.number) {
+  if (!body.name || !body.number) {
     return response.status(400).json({
       error: 'name or number missing goddamnit'
     })
@@ -118,15 +79,16 @@ app.post('/api/persons', (request, response) => {
       error: 'name must be unique'
     })
   }
-
-  const person = {
+  
+  const person = new Person({
     name: body.name,
     number: body.number,
-    date: new Date(),
-    id: Math.floor(Math.random() * 9999),
-  }
-  persons = persons.concat(person)
-  response.json(person) */
+  })
+
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+
+    })
 })
 
 const PORT = process.env.PORT
