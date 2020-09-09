@@ -39,7 +39,7 @@ app.get('/api/persons', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  
+
   if (!body.name || !body.number) {
     return response.status(400).json({
       error: 'name or number missing goddamnit'
@@ -50,7 +50,7 @@ app.post('/api/persons', (request, response) => {
     name: body.name,
     number: body.number,
   })
-  
+
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
@@ -84,7 +84,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     name: body.name,
     number: body.number,
   }
-  
+
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
     .then(updatedPerson => {
       response.json(updatedPerson.toJSON())
@@ -104,7 +104,7 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError' && error.kind == 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
+  }
 
   next(error)
 }
