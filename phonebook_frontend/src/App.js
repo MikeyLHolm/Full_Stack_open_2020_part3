@@ -64,6 +64,10 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           notificationMessage('Added', 'ok')
         })
+        .catch(error => {
+          console.log(error.response.data.error)
+          notificationMessage(error.response.data.error, 'error')
+        })
     }
   }
 
