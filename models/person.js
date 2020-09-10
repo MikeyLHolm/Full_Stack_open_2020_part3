@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 mongoose.set('useFindAndModify', false)
@@ -16,18 +17,18 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   })
 
 const personSchema = new mongoose.Schema({
-    name: {
-		type: String,
-		minlength: 3,
+  name: {
+    type: String,
+    minlength: 3,
     required: true,
     unique: true
-	},
-	number: {
-		type: String,
-		minlength: 8,
-		required: true
-	},
-    id: Number,
+  },
+  number: {
+    type: String,
+    minlength: 8,
+    required: true
+  },
+  id: Number,
 })
 
 personSchema.plugin(uniqueValidator)
